@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="door">
+
+ <link name="world"/>
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="baseLink"/>
+    <origin rpy= "0 0 1.571" xyz="0 0 0"/>
+  </joint>
+
+<link name="baseLink">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.048966669" ixy="0" ixz="0" iyy="0.046466667" iyz="0" izz="0.0041666669"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/frame3.stl"/>
+       </geometry>
+	   <material name="doormat0">
+      <color rgba="0.8 0.8 0.3 1" />
+      </material>
+
+	  </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/frame3.stl"/>
+       </geometry>
+     </collision>
+
+   </link>
+   <link name="door">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.048966669" ixy="0" ixz="0" iyy="0.046466667" iyz="0" izz="0.0041666669"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/door3.stl"/>
+       </geometry>
+	   <material name="doormat0">
+      <color rgba="0.8 0.8 0.3 1" />
+      </material>
+
+	  </visual>
+     <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/door3.stl"/>
+       </geometry>
+     </collision>
+
+   </link>
+
+   
+  <joint name="joint_baseLink_door" type="revolute">
+    <parent link="baseLink"/>
+    <child link="door"/>
+    <dynamics damping="1.0" friction="0.0001"/>
+    <origin xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-2.0" upper="0.0" velocity="0.5"/>
+    <mimic joint="joint_door_lever" multiplier="2"/>
+  </joint>
+
+  <link name="lever">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.048966669" ixy="0" ixz="0" iyy="0.046466667" iyz="0" izz="0.0041666669"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/lever3.stl"/>
+       </geometry>
+	   <material name="doormat0">
+      <color rgba="0.8 0.8 0.3 1" />
+      </material>
+
+	  </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/lever3.stl"/>
+       </geometry>
+     </collision>
+
+   </link>
+
+   
+   <joint name="joint_door_lever" type="revolute">
+    <parent link="door"/>
+    <child link="lever"/>
+	<dynamics damping="1.0" friction="0.0001"/>
+    <origin rpy="0 1.5708 0" xyz="-0.01509 -0.373 1.0"/>
+		<axis xyz="0 0 1"/>
+  
+   <limit effort="1000.0" lower="-1.0" upper="0.0" velocity="0.5"/>
+    <mimic joint="joint_baseLink_door" multiplier="0.5"/>
+  </joint>
+
+
+  <link name="latch">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.048966669" ixy="0" ixz="0" iyy="0.046466667" iyz="0" izz="0.0041666669"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <box size="0.01 0.01 0.03"/>
+       </geometry>
+	   <material name="doormat0">
+      <color rgba="1 1 1 1" />
+      </material>
+
+	  </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <box size="0.01 0.01 0.03"/>
+       </geometry>
+     </collision>
+
+   </link>
+
+  <joint name="joint_door_latch" type="prismatic">
+    <parent link="door"/>
+    <child link="latch"/>
+    <dynamics damping="1.0" friction="0.0001"/>
+    <limit effort="1000.0" lower="-0.02" upper="0.02" velocity="0.5"/>
+    <origin rpy="1.5708 0 0" xyz="-0.1 -0.37 1.1"/>
+    <axis xyz="0 0 1"/>	 
+
+  </joint>
+
+
+
+  <gazebo reference="lever">
+    <self_collide>1</self_collide>
+  </gazebo>
+  <gazebo reference="baseLink">
+    <self_collide>1</self_collide>
+  </gazebo>
+ <gazebo reference="door">
+    <self_collide>1</self_collide>
+  </gazebo>
+</robot>
