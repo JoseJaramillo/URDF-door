@@ -3,7 +3,7 @@
 
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
-  <arg name="model" default="$(find reemc_door)/models/test_door_6.urdf.xacro"/>
+  <arg name="model" default="$(find reemc_door)/models/test_door_8_house.urdf.xacro"/>
   <param name="door_description" command="$(find xacro)/xacro --inorder $(arg model)" />
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
         args="-z 0.0 -unpause -urdf -model door -param door_description" respawn="false" output="screen" />

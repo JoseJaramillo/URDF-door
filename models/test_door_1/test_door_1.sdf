@@ -1,0 +1,172 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="test_door_1">
+    <self_collide>true</self_collide>
+    <static>false</static>
+    <pose>0 0 0 0 0 0</pose>
+
+    <link name="frame">
+
+      <inertial>
+        <mass>100.0</mass>
+        <inertia>
+          <ixx>0.013102127690</ixx>   <ixy>-0.000000514790</ixy>    <ixz>0.000000965200</ixz>
+                                      <iyy>0.017339000240</iyy>     <iyz>-0.000017996010</iyz>
+                                                                    <izz>0.004334337460</izz>
+        </inertia>
+      </inertial>
+
+      <collision name="frame_collision">
+        <geometry>
+          <mesh>
+            <uri>model://test_door_1/meshes/frame4.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+      <visual name="frame_visual">
+        <geometry>
+          <mesh>
+            <uri>model://test_door_1/meshes/frame4.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/WoodPallet</name>
+          </script>
+        </material>
+      </visual>
+
+    </link>
+
+    <link name="door">
+
+      <inertial>
+        <mass>100.0</mass>
+        <inertia>
+          <ixx>0.030386862790</ixx>   <ixy>-0.000000000330</ixy>    <ixz>0.000000216760</ixz>
+                                      <iyy>0.035534743650</iyy>     <iyz>-0.000000000060</iyz>
+                                                                    <izz>0.005184277950</izz>
+        </inertia>
+      </inertial>
+
+      <collision name="door_collision">
+        <geometry>
+          <mesh>
+            <uri>model://test_door_1/meshes/door4.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+      <visual name="door_visual">
+        <geometry>
+          <mesh>
+            <uri>model://test_door_1/meshes/door4.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Wood</name>
+          </script>
+        </material>
+      </visual>
+
+    </link>
+
+
+    <link name="lever">
+      <pose>-0.79604 -0.06 1.0 1.5708 0 0</pose>
+      <inertial>
+        <mass>2.0</mass>
+        <inertia>
+          <ixx>0.01</ixx>   <ixy>0.00</ixy>     <ixz>0.00</ixz>
+                            <iyy>0.01</iyy>     <iyz>0.00</iyz>
+                                                <izz>0.01</izz>
+        </inertia>
+      </inertial>
+
+      <collision name="lever_collision">
+        <geometry>
+          <mesh>
+            <uri>model://test_door_1/meshes/lever4.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+      <visual name="lever_visual">
+        <geometry>
+          <mesh>
+            <uri>model://test_door_1/meshes/lever4.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Gold</name>
+          </script>
+        </material>
+      </visual>
+
+    </link>
+
+    <joint type="fixed" name="joint_world_frame">
+      <pose>0 0 0 0 0 0</pose>
+      <parent>world</parent>
+      <child>frame</child>
+      <physics>
+        <ode>
+          <implicit_spring_damper>1</implicit_spring_damper>
+        </ode>
+      </physics>
+    </joint>
+
+    <joint type="revolute" name="joint_frame_door">
+      <pose>0 0 0 0 0 0</pose>
+      <parent>frame</parent>
+      <child>door</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.01</friction>
+        </dynamics>
+        <limit>
+          <lower>-2.0</lower>
+          <upper>0.0</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>1</implicit_spring_damper>
+        </ode>
+      </physics>
+    </joint>
+
+    <joint type="revolute" name="joint_door_lever">
+      <pose>0 0 0 0 0 0</pose>
+      <parent>door</parent>
+      <child>lever</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.01</friction>
+          <spring_reference>0.0</spring_reference>
+          <spring_stiffness>3</spring_stiffness>
+        </dynamics>
+        <limit>
+          <lower>0.0</lower>
+          <upper>0.6</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>1</implicit_spring_damper>
+        </ode>
+      </physics>
+    </joint>
+
+  </model>
+</sdf>

@@ -1,0 +1,65 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="house_1">
+    <self_collide>false</self_collide>
+    <static>true</static>
+    <pose>0 0 0 0 0 0</pose>
+
+    <link name="walls">
+
+      <visual name="walls_visual">
+        <geometry>
+          <mesh>
+            <uri>model://house_1/meshes/walls.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/PaintedWall</name>
+          </script>
+        </material>
+      </visual>
+
+    </link>
+
+    <link name="column">
+
+
+      <visual name="column_visual">
+        <geometry>
+          <mesh>
+            <uri>model://house_1/meshes/column.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+    </link>
+
+
+    <link name="roof">
+
+      <visual name="roof_visual">
+        <geometry>
+          <mesh>
+            <uri>model://house_1/meshes/roof.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Bricks</name>
+          </script>
+        </material>
+      </visual>
+
+    </link>
+
+  </model>
+</sdf>

@@ -1,0 +1,249 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="door">
+
+ <link name="world"/>
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="frame"/>
+    <origin rpy= "0 0 1.571" xyz="0 0 0"/>
+  </joint>
+
+<link name="frame">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="100.0"/>
+      <inertia ixx="0.013102127690" 	ixy="-0.000000514790"	ixz="0.000000965200" 
+					iyy="0.017339000240" 	iyz="-0.000017996010" 
+								izz="0.004334337460"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/frame4.stl"/>
+       </geometry>
+	   <material name="doormat0">
+      <color rgba="0.8 0.8 0.3 1" />
+      </material>
+
+	  </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/frame4.stl"/>
+       </geometry>
+     </collision>
+
+   </link>
+
+  <gazebo reference="frame">
+    <material>Gazebo/WoodPallet</material>
+  </gazebo>
+   
+
+<!-- <<<<<<<<<<<<<<  HOUSE  >>>>>>>>>>>>>> --> 
+
+
+<link name="house">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="10000.0"/>
+      <inertia ixx="1.0" 	ixy="0.0"	ixz="0.0" 
+							iyy="1.0" 	iyz="-0.0" 
+										izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 1.571" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/walls.stl"/>
+       </geometry>
+
+	  </visual>
+     <!--collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/walls.stl"/>
+       </geometry>
+     </collision-->
+   </link>
+
+  <joint name="joint_world_house" type="fixed">
+    <parent link="world"/>
+    <child link="house"/>
+
+    <origin xyz="0 0 0"/>
+
+  </joint>
+
+
+  <gazebo reference="house">
+    <material>Gazebo/PaintedWall</material>
+  </gazebo>
+
+<link name="roof">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="10000.0"/>
+      <inertia ixx="1.0" 	ixy="0.0"	ixz="0.0" 
+							iyy="1.0" 	iyz="-0.0" 
+										izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 1.571" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/roof.stl"/>
+       </geometry>
+
+	  </visual>
+     <!--collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/walls.stl"/>
+       </geometry>
+     </collision-->
+   </link>
+
+  <joint name="joint_house_roof" type="fixed">
+    <parent link="house"/>
+    <child link="roof"/>
+
+    <origin xyz="0 0 0"/>
+
+  </joint>
+
+  <gazebo reference="roof">
+    <material>Gazebo/Bricks</material>
+  </gazebo>
+
+
+<link name="column">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="10000.0"/>
+      <inertia ixx="1.0" 	ixy="0.0"	ixz="0.0" 
+							iyy="1.0" 	iyz="-0.0" 
+										izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 1.571" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/column.stl"/>
+       </geometry>
+
+	  </visual>
+     <!--collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/walls.stl"/>
+       </geometry>
+     </collision-->
+   </link>
+
+  <joint name="joint_house_column" type="fixed">
+    <parent link="house"/>
+    <child link="column"/>
+
+    <origin xyz="0 0 0"/>
+
+  </joint>
+
+  <gazebo reference="column">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+<!-- <<<<<<<<<<<<<< /HOUSE >>>>>>>>>>>>>> --> 
+
+
+
+   <link name="door">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.030386862790" 	ixy="0.000000000330"	ixz="-0.000000216760" 
+					iyy="0.035534743650" 	iyz="-0.000000000060" 
+								izz="0.005184277950"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/door4.stl"/>
+       </geometry>
+
+	  </visual>
+     <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/door4.stl"/>
+       </geometry>
+     </collision>
+
+   </link>
+
+  <gazebo reference="door">
+    <material>Gazebo/Wood</material>
+  </gazebo>
+
+   
+  <joint name="joint_frame_door" type="revolute">
+    <parent link="frame"/>
+    <child link="door"/>
+    <dynamics damping="0.2" friction="0.000001"/>
+    <origin xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-2.0" upper="0.0" velocity="0.5"/>
+
+  </joint>
+
+  <link name="lever">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.0"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/lever4.stl"/>
+       </geometry>
+	   <material name="doormat0">
+      <color rgba="0.8 0.8 0.3 1" />
+      </material>
+
+	  </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+         <mesh filename="package://reemc_door/models/meshes/lever4.stl"/>
+       </geometry>
+     </collision>
+
+   </link>
+  <gazebo reference="lever">
+    <material>Gazebo/Gold</material>
+  </gazebo>
+   
+   <joint name="joint_door_lever" type="revolute">
+    <parent link="door"/>
+    <child link="lever"/>
+	<dynamics damping="0.5" friction="0.000001"/>
+    <origin rpy="1.5708 0 0" xyz="-0.79604 -0.06 1.0"/>
+		<axis xyz="0 0 1"/>
+  
+   <limit effort="1000.0" lower="-0.5236" upper="0.0" velocity="0.5"/>
+
+  </joint>
+
+
+
+
+
+  <gazebo reference="lever">
+    <self_collide>1</self_collide>
+  </gazebo>
+
+  <gazebo reference="frame">
+    <self_collide>1</self_collide>
+  </gazebo>
+ <gazebo reference="door">
+    <self_collide>1</self_collide>
+  </gazebo>
+</robot>

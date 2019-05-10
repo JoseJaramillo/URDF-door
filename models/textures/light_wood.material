@@ -1,0 +1,13 @@
+material light_wood{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood1.jpg
+                scale 1 1
+            }
+        }   
+    }
+}

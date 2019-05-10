@@ -1,0 +1,15 @@
+material light_wood
+{
+	receive_shadows on
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood1.jpg
+                scale 1 1
+            }
+        }   
+    }
+}
