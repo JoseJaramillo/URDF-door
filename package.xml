@@ -3,9 +3,9 @@
   <name>reemc_door</name>
   <version>0.0.1</version>
   <description>Simulation files for the REEM-C robot.</description>
-  <maintainer email="josevicentejaramillo@gmail.com">Jose Jaramillo</maintainer>
+  <maintainer email="josevicentejaramillo@gmail.com">Jose V. Jaramillo</maintainer>
   <license>Modified BSD</license>
-  <author email="josevicentejaramillo@gmail.com">Jose Jaramillo</author>
+  <author email="josevicentejaramillo@gmail.com">Jose V. Jaramillo</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="autoclose_door">
+
+  <link name="world"/>
+
+  <link name="frame">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="100.0"/>
+      <inertia ixx="0.013102127690" 	ixy="-0.000000514790"	  ixz="0.000000965200" 
+					                            iyy="0.017339000240" 	  iyz="-0.000017996010" 
+								                                              izz="0.004334337460"/>
+    </inertial>
+  </link>
+
+  <link name="door">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.030386862790" 	ixy="0.000000000330"	ixz="-0.000000216760" 
+					                            iyy="0.035534743650" 	iyz="-0.000000000060" 
+			    			                                            izz="0.005184277950"/>
+    </inertial>
+  </link>
+
+  <link name="lever">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.0"/>
+      <inertia ixx="0.01"             ixy="0.00"            ixz="0.00" 
+                                      iyy="0.01"            iyz="0.00" 
+                                                            izz="0.01"/>
+    </inertial>
+  </link>
+     
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="frame"/>
+    <origin rpy= "0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <joint name="joint_frame_door" type="revolute">
+    <parent link="frame"/>
+    <child link="door"/>
+    <dynamics damping="0.5" friction="0.01"/>
+    <origin xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-2.0" upper="0.0" velocity="0.5"/>
+  </joint>
+
+
+  <joint name="joint_door_lever" type="revolute">
+    <parent link="door"/>
+    <child link="lever"/>
+    <dynamics damping="0.5" friction="0.01"/>
+    <origin xyz="0.0 0.0 0.0"/>
+	  <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="0.0" upper="0.6" velocity="0.5"/>
+  </joint>
+
+  <transmission name="transmission1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_frame_door">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="wind_simulator">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!-- Gazebo plugin for ROS Control -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <!--legacyModeNS>true</legacyModeNS-->
+    </plugin>
+  </gazebo>
+
+</robot>

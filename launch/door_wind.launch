@@ -2,17 +2,18 @@
 
 <launch>
   
-  <arg name="world"  default="empty"/>  <!-- empty,... -->
+  <arg name="world"  default="wind"/>  <!-- empty,... -->
 
   <!-- start up world -->
   <env name="GAZEBO_MODEL_PATH" value="$(find reemc_door)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find reemc_door)/worlds/$(arg world).world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
     <arg name="recording" value="false"/>
-    <arg name="debug" value="false"/>
+    <arg name="debug" value="true"/>
 
   </include>
 

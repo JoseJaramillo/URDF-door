@@ -2,7 +2,7 @@
 
 <launch>
   
-  <arg name="world"  default="empty"/>  <!-- empty,... -->
+  <arg name="world"  default="moving_obstacle"/>  <!-- empty,... -->
 
   <!-- start up world -->
   <env name="GAZEBO_MODEL_PATH" value="$(find reemc_door)/models:$(optenv GAZEBO_MODEL_PATH)"/>

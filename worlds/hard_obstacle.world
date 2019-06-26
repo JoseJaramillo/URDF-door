@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <physics type="ode">
+      <gravity>0 0 -9.81</gravity>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>200</iters>        <!-- 50 -->
+          <sor>1.4</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.0</contact_surface_layer>
+        </constraints>
+      </ode>
+      <real_time_update_rate>1500</real_time_update_rate>   <!-- 1000 -->
+      <max_step_size>0.0005</max_step_size>   <!-- 0.001 -->
+    </physics>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <!-- A door -->
+    <include>
+      <uri>model://autoclose_door</uri>
+    </include>
+    <include>
+      <uri>model://hard_obstacle</uri>
+      <pose> -0.3 0.3 0.0 0.0 0.0 </pose>
+    </include>
+  </world>
+</sdf>
